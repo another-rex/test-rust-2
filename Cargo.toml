@@ -1,0 +1,15 @@
+[package]
+name = "test-rust-2"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rustc-demangle = "*"
+regex = "*"
+crossbeam-epoch = "0.7.2"
+memoffset = "0.5.0"
+itoa = { path = "../itoa" }
+# smallvec = "=1.6.0"
+# reqwest = { version = "*", features = ["blocking"] }
