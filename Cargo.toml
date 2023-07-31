@@ -10,6 +10,10 @@ rustc-demangle = "*"
 regex = "*"
 crossbeam-epoch = "0.7.2"
 memoffset = "0.5.0"
-itoa = { path = "../itoa" }
+libflate = "*"
+# itoa = { path = "../itoa" }
 smallvec = "=1.6.0"
 # reqwest = { version = "*", features = ["blocking"] }
+
+[lib]
+path = "src/lib/lib.rs"

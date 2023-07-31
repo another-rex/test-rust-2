@@ -1,6 +1,8 @@
 #![allow(unconditional_panic)]
 // use std::collections::HashSet;
 
+use std::io::Read;
+
 // use once_cell::sync::Lazy;
 use regex::Regex;
 
@@ -72,21 +74,22 @@ fn main() {
     other_item_123(&a);
 }
 
-fn other_item_123(item: &impl TestTrait) {
+fn other_item_123(item: &dyn TestTrait) {
     item.test_aabbee();
-    // let mut v = smallvec::SmallVec::<[usize; 16]>::new();
+    let mut v = smallvec::SmallVec::<[usize; 16]>::new();
+    v.grow(22);
     // // v.push(self.somedata);
     // // v.insert_many(0, 5..=item);
     // dbg!(v);
     // // item.run_stuff(item);
 }
 
-// fn this_does_not_call() {
-//     println!("asdasd");
-//     // let mut v = smallvec::SmallVec::<[usize; 16]>::new();
-//     // v.push(self.somedata);
-//     // v.insert_many(0, 5..=10);
-// }
+fn this_does_not_call() {
+    println!("asdasd");
+    // let mut v = smallvec::SmallVec::<[usize; 16]>::new();
+    // v.push(self.somedata);
+    // v.insert_many(0, 5..=10);
+}
 
 trait TestTrait {
     fn test_aabbee(&self);
@@ -102,10 +105,15 @@ impl TestTrait for C {
         let mut v = smallvec::SmallVec::<[u64; 16]>::new();
         v.push(self.somedata);
         v.insert_many(0, 5..=7);
-        dbg!(v);
+        let mut multicode = libflate::gzip::MultiDecoder::new(&b"sadasd"[..]).unwrap();
+        multicode.read(&mut vec![]).unwrap();
+        // smallvec::
+        let offset = memoffset::offset_of!(C, somedata);
+        dbg!(v, offset);
     }
 
     fn run_stuff(&self, other: i32) {
+        this_does_not_call();
         dbg!(other);
     }
 }
